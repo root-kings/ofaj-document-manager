@@ -3,7 +3,7 @@ const pug = require('gulp-pug')
 const sass = require('gulp-sass')
 const replace = require('gulp-replace')
 const minifyCSS = require('gulp-csso')
-var del = require('del')
+const del = require('del')
 
 function clean() {
 	return del(['public/build', 'build'])
@@ -68,5 +68,5 @@ exports.mobile = series(cleanMobile, parallel(mobilecss, mobilehtml, mobilestati
 // exports.devhtml = devhtml
 // exports.default = series(clean, html)
 exports.devCss = parallel(css)
-exports.default = console.log('Build instructions not defined.')
+exports.default = series(clean)
 // exports.default = parallel(dev)
