@@ -3,7 +3,26 @@ extends components/layout.pug
 block styles
 
 block content
-    h3 Hello
+
+    section#documentList
+        .container
+            .row
+                h4.light.col.s12 Documents
+                
+
+            .row
+                h5.light.col.s12 Attention needed
+                .col.s12
+                    .collection
+                        a.collection-item(v-for="document in documents.urgent", key="document._id") {{document.name}}
+                            span.new.badge.red(data-badge-caption="urgent")
+
+            .row
+                h5.light.col.s12 Pending
+                .col.s12
+                    .collection
+                        a.collection-item(v-for="document in documents.normal", key="document._id") {{document.name}}
+                            
 
 block scripts
-    
+    script(src="/js/init/index.js")
