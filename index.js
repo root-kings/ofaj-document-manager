@@ -5,11 +5,11 @@ const bodyParser = require('body-parser')
 const logger = require('morgan')
 
 const PORT = process.env.PORT
-const DBPORT = process.env.MONGODB_URI 
+const DBPORT = process.env.MONGODB_URI
 
 var app = express()
 
-mongoose.connect(DBPORT)
+mongoose.connect(DBPORT, { useNewUrlParser: true })
 mongoose.Promise = global.Promise
 var db = mongoose.connection
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
