@@ -21,6 +21,10 @@ router.get('/document/create', (req, res) => {
 	res.render('documentCreate')
 })
 
+router.get('/user/create', (req, res) => {
+	res.render('userCreate')
+})
+
 // Document -----
 
 const documentController = require('./controllers/documentController')
@@ -48,7 +52,7 @@ router.get('/api/user/:id', userController.user_detail_get)
 
 router.get('/api/users/deleteall', userController.users_delete_all_get)
 
-router.post('/api/user/create', userController.user_create_post)
+router.post('/api/user/create', upload.any(),userController.user_create_post)
 
 router.post('/api/user/:id/delete', userController.user_delete_post)
 

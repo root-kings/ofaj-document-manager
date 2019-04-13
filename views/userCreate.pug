@@ -1,0 +1,47 @@
+extends components/layout.pug
+
+block styles
+
+block content
+
+    section
+        .container
+            .row
+                h4.light.col.s12 Create user
+
+
+            .row
+                form#userCreateForm.col.s12(v-on:submit.prevent="onSubmit")
+                    .row
+                        .input-field.col.s12
+                            input#name(name="name", v-model="name", type="text")
+                            label(for="name") Name
+
+                        .input-field.col.s12
+                            input#username(name='username', v-model='username', type='text')
+                            label(for='username') Username
+
+                        .input-field.col.s12
+                            input#password(name='password', v-model='password', type='password')
+                            label(for='password') Password
+
+                        .input-field.col.s12
+                            input#email(name='email', v-model='email', type='email')
+                            label(for='email') Email
+
+                        .input-field.col.s12
+                            input#phone(name='phone', v-model='phone', type='text')
+                            label(for='phone') Phone
+
+
+
+                    .row
+                        .col.s12.m6.offset-m3
+                            button.full-width.btn.waves-effect.waves-light(type="submit") Submit
+
+
+
+
+
+block scripts
+    script(src="/js/init/userCreate.js")

@@ -24,8 +24,8 @@ exports.users_get = (req, res) => {
 }
 
 exports.user_create_post = (req, res) => {
-	let newuser = new User(req.body.user)
-	console.log(newuser)
+	let newuser = new User(req.body)
+	// console.log(newuser)
 
 	newuser.save((err, result) => {
 		if (err) return res.status(500).send(err)
