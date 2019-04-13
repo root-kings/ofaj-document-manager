@@ -1,6 +1,6 @@
-document.addEventListener('DOMContentLoaded', function() {
-	M.AutoInit()
-})
+// document.addEventListener('DOMContentLoaded', function() {
+// 	M.AutoInit()
+// })
 
 function hasClass(el, className) {
 	if (el != undefined) {
