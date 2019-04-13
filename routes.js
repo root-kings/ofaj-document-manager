@@ -21,7 +21,7 @@ router.get('/document/create', (req, res) => {
 	res.render('documentCreate')
 })
 
-// Machine -----
+// Document -----
 
 const documentController = require('./controllers/documentController')
 
@@ -36,5 +36,30 @@ router.post('/api/document/create', upload.single('document'), documentControlle
 router.post('/api/document/:id/delete', documentController.document_delete_post)
 
 router.post('/api/document/:id/edit', documentController.document_update_post)
+
+
+// User -----
+
+const userController = require('./controllers/userController')
+
+router.get('/api/users', userController.users_get)
+
+router.get('/api/user/:id', userController.user_detail_get)
+
+router.get('/api/users/deleteall', userController.users_delete_all_get)
+
+router.post('/api/user/create', userController.user_create_post)
+
+router.post('/api/user/:id/delete', userController.user_delete_post)
+
+router.post('/api/user/:id/edit', userController.user_update_post)
+
+router.post('/api/user/:id/activate', userController.user_activate_post)
+
+router.post('/api/user/login', userController.user_login_post)
+
+
+
+
 
 module.exports = router
