@@ -14,6 +14,11 @@ router.get('/login', (req, res) => {
 	res.render('login')
 })
 
+router.get('/document/create', (req, res) => {
+	res.render('documentCreate')
+})
+
+
 // Machine -----
 
 var documentController = require('./controllers/documentController')
