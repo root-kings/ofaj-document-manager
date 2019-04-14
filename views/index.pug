@@ -1,0 +1,26 @@
+extends components/layout.pug
+
+block styles
+
+block content
+
+    section
+        .container
+            .row
+                h4.light.col.s12 All routes
+                
+
+            .row
+                
+                .col.s12
+                    .collection
+                        a.collection-item(href="/documents") List documents
+                        a.collection-item(href="/document/create") Create document
+                        a.collection-item(href="/users") List users
+                        a.collection-item(href="/user/create") Create user
+                        //- TODO: Create login form and logic for loggedUser StorageObject                            
+
+            
+
+block scripts
+    
