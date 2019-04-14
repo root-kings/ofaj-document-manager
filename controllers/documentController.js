@@ -1,6 +1,9 @@
-var Document = require('../models/document')
+const Document = require('../models/document')
 
-var moment = require('moment')
+const moment = require('moment')
+const aws = require('aws-sdk')
+const S3_BUCKET = process.env.S3_BUCKET
+aws.config.region = process.env.AWS_REGION
 
 // API -----
 exports.document_detail_get = (req, res) => {
@@ -24,8 +27,15 @@ exports.documents_get = (req, res) => {
 }
 
 exports.document_create_post = (req, res) => {
+	console.log(req.body)
+	// console.log(req.file)
+
 	let newdocument = new Document({
-		name: req.body.name
+		name: req.body.name,
+		urgent: req.body.urgent,
+		applicant: req.body.applicant,
+		currentOfficer: req.body.officer,
+		fileUrl: req.body.fileUrl
 	})
 
 	newdocument.save((err, result) => {
@@ -75,5 +85,31 @@ exports.document_update_post = (req, res) => {
 		if (result) return res.send(result)
 
 		return res.send(false)
+	})
+}
+
+exports.document_sign_s3_get = (req, res) => {
+	const s3 = new aws.S3()
+	const fileName = req.query.fileName
+	const fileType = req.query.fileType
+
+	const s3Params = {
+		Bucket: S3_BUCKET,
+		Key: fileName,
+		Expires: 60,
+		ContentType: fileType,
+		ACL: 'public-read'
+	}
+
+	s3.getSignedUrl('putObject', s3Params, (err, data) => {
+		if (err) {
+			console.error(err)
+			return res.status(500).send(err)
+		}
+		const returnData = {
+			signedRequest: data,
+			url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+		}
+		res.send(JSON.stringify(returnData))
 	})
 }

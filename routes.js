@@ -2,8 +2,8 @@
 /* eslint-disable capitalized-comments */
 const router = require('express').Router()
 
-const multer = require('multer')
-const upload = multer({ dest: __dirname + '/uploads/' })
+// const multer = require('multer')
+// const upload = multer({ dest: __dirname + '/uploads/' })
 
 router.get('/', (req, res) => {
 	res.render('index')
@@ -31,11 +31,14 @@ const documentController = require('./controllers/documentController')
 
 router.get('/api/documents', documentController.documents_get)
 
-router.get('/api/document/:id', documentController.document_detail_get)
+router.get('/api/document/sign-s3', documentController.document_sign_s3_get)
 
 router.get('/api/documents/deleteall', documentController.documents_delete_all_get)
 
-router.post('/api/document/create', upload.single('document'), documentController.document_create_post)
+router.post('/api/document/create', documentController.document_create_post)
+// router.post('/api/document/create', upload.single('document'), documentController.document_create_post)
+
+router.get('/api/document/:id', documentController.document_detail_get)
 
 router.post('/api/document/:id/delete', documentController.document_delete_post)
 
@@ -52,7 +55,7 @@ router.get('/api/user/:id', userController.user_detail_get)
 
 router.get('/api/users/deleteall', userController.users_delete_all_get)
 
-router.post('/api/user/create', upload.any(),userController.user_create_post)
+router.post('/api/user/create', userController.user_create_post)
 
 router.post('/api/user/:id/delete', userController.user_delete_post)
 
