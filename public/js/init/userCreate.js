@@ -16,14 +16,21 @@ document.addEventListener('DOMContentLoaded', function() {
 			onSubmit: function() {
 				showWait()
 
-				axios
-					.post('/api/user/create', {
-						name: this.name,
-						username: this.username,
-						email: this.email,
-						password: this.password,
-						phone: this.phone
-					})
+				let newUser = {
+					name: this.name,
+					username: this.username,
+					email: this.email,
+					password: this.password,
+					phone: this.phone
+				}
+
+				fetch('/api/user/create', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(newUser)
+				})
 					.then(function(response) {
 						M.toast({ html: 'User application sent!' })
 					})

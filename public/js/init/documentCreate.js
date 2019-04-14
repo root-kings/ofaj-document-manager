@@ -18,36 +18,31 @@ document.addEventListener('DOMContentLoaded', function() {
 			onSubmit: function() {
 				showWait()
 
-				// let formData = new FormData()
-				// formData.append('document', this.file)
-				// formData.append('applicant', this.user)
-				// formData.append('name', this.name)
-				// formData.append('officer', this.selectedofficer)
-				// formData.append('urgent', this.urgent)
+				let newDocument = {
+					fileUrl: this.fileUrl,
+					applicant: this.user,
+					name: this.name,
+					officer: this.selectedofficer,
+					urgent: this.urgent
+				}
 
-				axios
-					// .post('/api/document/create', formData, {
-					// 	headers: {
-					// 		'Content-Type': 'multipart/form-data'
-					// 	}
-					// })
-					.post('/api/document/create', {
-						fileUrl: this.fileUrl,
-						applicant: this.user,
-						name: this.name,
-						officer: this.selectedofficer,
-						urgent: this.urgent
-					})
+				fetch('/api/document/create', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(newDocument)
+				})
 					.then(function(response) {
 						M.toast({ html: 'Document application sent!' })
+						// TODO: redirect to success page
 					})
 					.catch(function(error) {
 						M.toast({ html: 'Error occured! Check console for details.' })
-						console.error(error)
+						console.err(error)
 					})
 					.then(function() {
 						hideWait()
-						// TODO: redirect to success page
 					})
 			},
 
@@ -60,15 +55,12 @@ document.addEventListener('DOMContentLoaded', function() {
 			getSignedRequest: function(file) {
 				// console.log(file)
 				currentVue = this
-				axios
-					.get('/api/document/sign-s3', {
-						params: {
-							fileName: file.name,
-							fileType: file.type
-						}
-					})
+
+				fetch(`/api/document/sign-s3?fileName=${file.name}&fileType=${file.type}`)
 					.then(function(response) {
-						let data = response.data
+						return response.json()
+					})
+					.then(function(data) {
 						currentVue.uploadFile(file, data.signedRequest, data.url)
 					})
 					.catch(function(error) {
@@ -97,12 +89,12 @@ document.addEventListener('DOMContentLoaded', function() {
 			populateOfficers: function() {
 				let currentVue = this
 
-				axios
-					.get('/api/users')
+				fetch('/api/users')
 					.then(function(response) {
-						currentVue.officers = response.data
-
-						// let officerSelectInstance = M.FormSelect.init(this.$refs.officerSelect)
+						return response.json()
+					})
+					.then(function(users) {
+						currentVue.officers = users
 					})
 					.catch(function(error) {
 						M.toast({ html: 'Error occured! Check console for details.' })
@@ -111,14 +103,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 		},
 
-		created: function() {},
-
 		mounted: function() {
 			M.AutoInit()
-			// console.log(officerSelectInstance.dropdownOptions)
 			M.updateTextFields()
 			this.populateOfficers()
-
+			// TODO: initialize materialize select
 			hideWait()
 		}
 	})
