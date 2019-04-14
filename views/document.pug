@@ -1,0 +1,26 @@
+extends components/layout.pug
+
+block styles
+
+block content
+
+    section#document
+        .container
+            .row
+                h4.light.col.s12 Document
+                
+                h5.col.s12 {{ name }}
+                h6.light.col.s12 # {{ documentId }}
+
+                h6.light.col.s12 Urgent: {{ urgent }}
+                h6.light.col.s12 Link: {{ fileUrl }}
+                h6.light.col.s12 Completed: {{ done }}
+                
+                h6.light.col.s12 Applicant: {{ applicant.name }}
+                h6.light.col.s12 Current Passing Officer: {{ currentOfficer.name }}
+                h6.light.col.s12 History of Officers: {{ history }}
+            
+                
+
+block scripts
+    script(src="/js/init/document.js")

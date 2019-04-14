@@ -21,6 +21,10 @@ router.get('/document/create', (req, res) => {
 	res.render('documentCreate')
 })
 
+router.get('/document', (req, res) => {
+	res.render('document')
+})
+
 router.get('/users', (req, res) => {
 	res.render('users')
 })
