@@ -1,0 +1,28 @@
+extends components/layout.pug
+
+block styles
+
+block content
+
+    section#userList
+        .container
+            .row
+                h4.light.col.s12 Users
+                
+
+            .row
+                //- h5.light.col.s12 Attention needed
+                .col.s12
+                    .collection
+                        a.collection-item(v-for="user in users", :key="user._id") {{user.name}}
+                            //- span.new.badge.red(data-badge-caption="urgent")
+
+            //- .row
+                h5.light.col.s12 Pending
+                .col.s12
+                    .collection
+                        a.collection-item(v-for="user in users.inactive", :key="user._id") {{user.name}}
+                            
+
+block scripts
+    script(src="/js/init/users.js")
