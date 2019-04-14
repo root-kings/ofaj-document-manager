@@ -45,6 +45,10 @@ document.addEventListener('DOMContentLoaded', function() {
 						M.toast({ html: 'Error occured! Check console for details.' })
 						console.error(error)
 					})
+			},
+			viewDocument: function(id) {
+				localStorage.setItem('selectedDocument', id)
+				window.location.href = '/document'
 			}
 		},
 

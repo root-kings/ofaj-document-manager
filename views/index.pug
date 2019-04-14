@@ -14,7 +14,7 @@ block content
                 h5.light.col.s12 Attention needed
                 .col.s12
                     .collection
-                        a.collection-item(v-for="document in documents.urgent", :key="document._id") {{document.name}}
+                        a.collection-item(v-for="document in documents.urgent", :key="document._id", @click="viewDocument(document._id)") {{document.name}}
                             span.new.badge.red(data-badge-caption="urgent")
 
             .row
