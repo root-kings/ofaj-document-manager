@@ -1,8 +1,8 @@
-let documentFormVue
+let documentsVue
 
 document.addEventListener('DOMContentLoaded', function() {
 	showWait()
-	documentFormVue = new Vue({
+	documentsVue = new Vue({
 		el: '#documentList',
 		data: {
 			documents: {
@@ -30,10 +30,26 @@ document.addEventListener('DOMContentLoaded', function() {
 		},
 
 		methods: {
-			
+			poplateDocuments: function() {
+				let currentVue = this
+
+				fetch('/api/documents')
+					.then(function(response) {
+						return response.json()
+					})
+					.then(function(documents) {
+						currentVue.documents.urgent = documents.filter(document => document.urgent)
+						currentVue.documents.normal = documents.filter(document => !document.urgent)
+					})
+					.catch(function(error) {
+						M.toast({ html: 'Error occured! Check console for details.' })
+						console.error(error)
+					})
+			}
 		},
 
 		mounted: function() {
+			this.poplateDocuments()
 			M.AutoInit()
 			hideWait()
 		}
