@@ -9,6 +9,10 @@ router.get('/', (req, res) => {
 	res.render('index')
 })
 
+router.get('/documents', (req, res) => {
+	res.render('documents')
+})
+
 router.get('/about', (req, res) => {
 	res.render('about')
 })
