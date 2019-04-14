@@ -7,7 +7,7 @@ aws.config.region = process.env.AWS_REGION
 
 // API -----
 exports.document_detail_get = (req, res) => {
-	Document.findById(req.params.id).exec((err, result) => {
+	Document.findById(req.params.id).populate('applicant').populate('currentOfficer').exec((err, result) => {
 		if (err) return res.status(500).send(err)
 
 		if (result) return res.send(result)
