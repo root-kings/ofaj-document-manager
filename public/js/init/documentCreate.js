@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			},
 
 			uploadFile: function(file, signedRequest, url) {
+				showWait()
 				currentVue = this
 
 				fetch(signedRequest, {
@@ -83,6 +84,9 @@ document.addEventListener('DOMContentLoaded', function() {
 					.catch(function(error) {
 						M.toast({ html: 'Error occured! Check console for details.' })
 						console.error(error)
+					})
+					.then(function() {
+						hideWait()
 					})
 			},
 
