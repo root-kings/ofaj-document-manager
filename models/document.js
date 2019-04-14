@@ -19,14 +19,10 @@ var DocumentSchema = new Schema(
 			default: false,
 			required: true
 		},
-		file: {
-			url: {
-				type: String,
-				default: ''
-			},
-			mimetype: {
-				type: String
-			}
+		fileUrl: {
+			type: String,
+			default: '',
+			required: true
 		},
 		done: {
 			type: Boolean,
@@ -42,8 +38,7 @@ var DocumentSchema = new Schema(
 			{
 				officer: {
 					type: Schema.Types.ObjectId,
-					ref: 'User',
-					required: true
+					ref: 'User'
 				},
 				approvalDate: {
 					type: Date
