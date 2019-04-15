@@ -1,6 +1,10 @@
-// document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
 // 	M.AutoInit()
-// })
+	let user = localStorage.getItem('loggedUser')
+
+	if(!user && window.location.pathname != '/login') window.location.href = '/login'
+
+})
 
 function hasClass(el, className) {
 	if (el != undefined) {
