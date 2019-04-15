@@ -19,7 +19,7 @@ block content
                         i.material-icons.left visibility
                         
                 
-                h6.col.s8 Current status: {{ done ? "Done" : "Pending"}}
+                h6.col.s8 Current status: {{ done ? "Done" : rejected ? "Rejected" : "Pending"}}
                     
 
                 h6.col.s12 Applicant: {{ applicant.name }}

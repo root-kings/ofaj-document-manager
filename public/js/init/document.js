@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			urgent: false,
 			fileUrl: '',
 			done: false,
+			rejected: false,
 			_id: '',
 			applicant: '',
 			currentOfficer: '',
@@ -31,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
 						currentVue.urgent         = document.urgent
 						currentVue.fileUrl        = document.fileUrl
 						currentVue.done           = document.done
+						currentVue.rejected       = document.rejected
 						currentVue._id            = document._id
 						currentVue.applicant      = document.applicant
 						currentVue.currentOfficer = document.currentOfficer

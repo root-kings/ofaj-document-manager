@@ -29,10 +29,14 @@ var DocumentSchema = new Schema(
 			default: false,
 			required: true
 		},
+		rejected: {
+			type: Boolean,
+			default: false,
+			required: true
+		},
 		currentOfficer: {
 			type: Schema.Types.ObjectId,
-			ref: 'User',
-			required: true
+			ref: 'User'
 		},
 		history: [
 			{
@@ -40,8 +44,12 @@ var DocumentSchema = new Schema(
 					type: Schema.Types.ObjectId,
 					ref: 'User'
 				},
-				approvalDate: {
+				date: {
 					type: Date
+				},
+				action: {
+					type:String, 
+					enum: ['Approved', 'Forwarded', 'Rejected', 'Finalized']
 				}
 			}
 		]
