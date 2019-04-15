@@ -7,17 +7,39 @@ block content
     section#document
         .container
             .row
-                h4.light.col.s12 Document
+                h4.light.col.s12 Document Details
                 
                 h5.col.s12 {{ name }}
+                    i.material-icons.red-text.right(v-if="urgent") error_outline
+                    
                 h6.light.col.s12 # {{ documentId }}
 
-                h6.light.col.s12 Urgent: {{ urgent }}
-                h6.light.col.s12 Link: {{ fileUrl }}
-                h6.light.col.s12 Completed: {{ done }}
+                p.col.s12
+                    a.btn(:href="fileUrl", target="_blank") View
+                        i.material-icons.left visibility
+                        
                 
-                h6.light.col.s12 Applicant: {{ applicant.name }}
-                h6.light.col.s12 Current Passing Officer: {{ currentOfficer.name }}
+                h6.col.s8 Current status: {{ done ? "Done" : "Pending"}}
+                    
+
+                h6.col.s12 Applicant: {{ applicant.name }}
+                h6.col.s12 Current Passing Officer: {{ currentOfficer.name }}
+
+            .row
+                p.col.s6
+                    a.btn.full-width.green(@click="") Approve
+                        //- i.material-icons.left done
+                p.col.s6
+                    a.btn.full-width(@click="") Forward
+                        //- i.material-icons.left done
+                p.col.s6
+                    a.btn.full-width.blue(@click="") Done
+                        //- i.material-icons.left done
+                p.col.s6
+                    a.btn.full-width.red(@click="") Reject
+                        //- i.material-icons.left close
+                
+            .row    
                 h6.light.col.s12 History of Officers: {{ history }}
             
                 
