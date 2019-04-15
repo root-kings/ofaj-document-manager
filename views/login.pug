@@ -18,23 +18,22 @@ html(lang="en")
                 .col.offset-s1.s10.z-depth-5.card-panel.rounded
 
                     .container
-                        form#loginform.row
+                        form#loginForm.row(v-on:submit.prevent="onSubmit")
                             .col.s12
                                 h4.header.light.center OFAJ Assistant
-                                h5.center Login
-                            .input-field.col.s12
-                                i.material-icons.prefix.blue-text account_circle
-                                input#username.validate(name='username' type='text')
-                                label(for='username') Username
-                            .input-field.col.s12
-                                i.material-icons.prefix.blue-text lock_circle
-                                input#password.validate(name='password' type='password')
-                                label(for='password') Password
+                                h5.center Login Test
+                            
+                            .col.s12
+                                label User    
+                                select.browser-default(name="username", v-model="user", ref="userSelect")
+                                    option(value="", disabled, selected) Choose your user
+                                    option(:value="user._id",  v-for="user in users" :key="user._id") {{user.name}}
+
                             .col.s12.center
-                                a.btn.btn-large.waves-effect.waves-light.blue.curvy(href='javascript: doLogin()') Login
+                                button.btn.btn-large.waves-effect.waves-light.blue.curvy(type="submit") Login
                                 
                             .col.s12.center
-                                a.btn.btn-large.btn-flat.waves-effect.waves-light(href='/register') register
+                                a.btn.btn-large.btn-flat.waves-effect.waves-light(href='/user/create') Register
                                 
 
         include components/scripts.pug
