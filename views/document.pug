@@ -19,24 +19,24 @@ block content
                         i.material-icons.left visibility
                         
                 
-                h6.col.s8 Current status: {{ done ? "Done" : rejected ? "Rejected" : "Pending"}}
+                h6.col.s8 Current status: {{ rejected ? "Rejected": done ? "Done" : "Pending"}}
                     
 
                 h6.col.s12 Applicant: {{ applicant.name }}
                 h6.col.s12 Current Passing Officer: {{ currentOfficer.name }}
 
-            .row
-                p.col.s6
-                    a.btn.full-width.green(@click="") Approve
+            .row(v-if="passingOfficerLoggedIn")
+                p.col.s6.m3
+                    button.btn.full-width.green(@click="approveDocument", :disabled="done || approved || rejected") Approve
                         //- i.material-icons.left done
-                p.col.s6
-                    a.btn.full-width(@click="") Forward
+                p.col.s6.m3
+                    button.btn.full-width(@click="forwardDocument", :disabled="done || rejected || !approved") Forward
                         //- i.material-icons.left done
-                p.col.s6
-                    a.btn.full-width.blue(@click="") Done
+                p.col.s6.m3
+                    button.btn.full-width.blue(@click="finalizeDocument", :disabled="done || rejected || !approved") Done
                         //- i.material-icons.left done
-                p.col.s6
-                    a.btn.full-width.red(@click="") Reject
+                p.col.s6.m3
+                    button.btn.full-width.red(@click="rejectDocument", :disabled="done || approved || rejected") Reject
                         //- i.material-icons.left close
                 
             .row    
