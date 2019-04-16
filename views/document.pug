@@ -40,8 +40,19 @@ block content
                         //- i.material-icons.left close
                 
             .row    
-                h6.light.col.s12 History of Officers: {{ history }}
-            
+                h6.light.col.s12 History of Officers: 
+                .col.s12
+                    ul.collection.history
+                        li.collection-item.avatar(v-for="historyItem in history")
+                            i.material-icons.circle.green(v-if="historyItem.action == 'Approved'") done
+                            i.material-icons.circle.red(v-else-if="historyItem.action == 'Rejected'") close
+                            i.material-icons.circle.yellow(v-else-if="historyItem.action == 'Forwared'") forward
+                            i.material-icons.circle.blue(v-else="historyItem.action == 'Finalized'") done_all
+                            span.title {{ historyItem.officer.name }}
+                            p {{ historyItem.action }} - {{ moment(historyItem.date).format('DD MMM YYYY') }}
+                                
+
+                
                 
 
 block scripts

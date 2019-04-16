@@ -203,3 +203,6 @@ span.tiny {
 	/* Add a pointer on hover */
 }
 
+.history .collection-item.avatar {
+	min-height: initial;
+}
