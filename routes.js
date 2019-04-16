@@ -58,6 +58,8 @@ router.post('/api/document/:id/reject', documentController.document_reject_post)
 
 router.post('/api/document/:id/approve', documentController.document_approve_post)
 
+router.post('/api/document/:id/finalize', documentController.document_finalize_post)
+
 router.post('/api/document/:id/edit', documentController.document_update_post)
 
 

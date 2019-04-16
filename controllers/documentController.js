@@ -112,6 +112,16 @@ exports.document_approve_post = (req, res) => {
 	})
 }
 
+exports.document_finalize_post = (req, res) => {
+	Document.findOneAndUpdate({ _id: req.params.id }, { done: true }, { safe: true, upsert: true }).exec((err, result) => {
+		if (err) return res.status(500).send(err)
+
+		if (result) return res.send(result)
+
+		return res.send(false)
+	})
+}
+
 exports.document_sign_s3_get = (req, res) => {
 	const s3 = new aws.S3()
 	const fileName = req.query.fileName

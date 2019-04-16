@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		methods: {
 			poplateDocument: function() {
 				this.documentId = localStorage.getItem('selectedDocument')
-				
 
 				let currentVue = this
 
@@ -74,7 +73,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 			},
 
-			approveDocument: function() {let currentVue = this
+			approveDocument: function() {
+				let currentVue = this
 				showWait()
 				fetch(`/api/document/${currentVue.documentId}/approve`, {
 					method: 'POST'
@@ -94,9 +94,32 @@ document.addEventListener('DOMContentLoaded', function() {
 					})
 					.then(function() {
 						hideWait()
-					})},
+					})
+			},
 
-			finalizeDocument: function() {},
+			finalizeDocument: function() {
+				let currentVue = this
+				showWait()
+				fetch(`/api/document/${currentVue.documentId}/finalize`, {
+					method: 'POST'
+				})
+					.then(function(response) {
+						if (response.status == 200) {
+							M.toast({ html: 'Document finalized!' })
+							currentVue.done = true
+						} else {
+							M.toast({ html: 'Error occured! Check console for details.' })
+						}
+						// TODO: redirect to success page
+					})
+					.catch(function(error) {
+						M.toast({ html: 'Error occured! Check console for details.' })
+						console.err(error)
+					})
+					.then(function() {
+						hideWait()
+					})
+			},
 
 			forwardDocument: function() {}
 		},
