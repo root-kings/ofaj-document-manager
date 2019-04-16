@@ -74,7 +74,27 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 			},
 
-			approveDocument: function() {},
+			approveDocument: function() {let currentVue = this
+				showWait()
+				fetch(`/api/document/${currentVue.documentId}/approve`, {
+					method: 'POST'
+				})
+					.then(function(response) {
+						if (response.status == 200) {
+							M.toast({ html: 'Document approved!' })
+							currentVue.approved = true
+						} else {
+							M.toast({ html: 'Error occured! Check console for details.' })
+						}
+						// TODO: redirect to success page
+					})
+					.catch(function(error) {
+						M.toast({ html: 'Error occured! Check console for details.' })
+						console.err(error)
+					})
+					.then(function() {
+						hideWait()
+					})},
 
 			finalizeDocument: function() {},
 
