@@ -7,13 +7,17 @@ aws.config.region = process.env.AWS_REGION
 
 // API -----
 exports.document_detail_get = (req, res) => {
-	Document.findById(req.params.id).populate('applicant').populate('currentOfficer').exec((err, result) => {
-		if (err) return res.status(500).send(err)
+	Document.findById(req.params.id)
+		.populate('applicant')
+		.populate('currentOfficer')
+		.populate('history')
+		.exec((err, result) => {
+			if (err) return res.status(500).send(err)
 
-		if (result) return res.send(result)
+			if (result) return res.send(result)
 
-		return res.send(false)
-	})
+			return res.send(false)
+		})
 }
 
 exports.documents_get = (req, res) => {
@@ -80,6 +84,16 @@ exports.document_update_post = (req, res) => {
 			upsert: true
 		}
 	).exec((err, result) => {
+		if (err) return res.status(500).send(err)
+
+		if (result) return res.send(result)
+
+		return res.send(false)
+	})
+}
+
+exports.document_reject_post = (req, res) => {
+	Document.findOneAndUpdate({ _id: req.params.id }, { rejected: true }, { safe: true, upsert: true }).exec((err, result) => {
 		if (err) return res.status(500).send(err)
 
 		if (result) return res.send(result)

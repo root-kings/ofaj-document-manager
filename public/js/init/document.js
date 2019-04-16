@@ -14,12 +14,15 @@ document.addEventListener('DOMContentLoaded', function() {
 			_id: '',
 			applicant: '',
 			currentOfficer: '',
-			history: []
+			history: [],
+			approved: false,
+			passingOfficerLoggedIn: false
 		},
 
 		methods: {
 			poplateDocument: function() {
 				this.documentId = localStorage.getItem('selectedDocument')
+				
 
 				let currentVue = this
 
@@ -28,21 +31,54 @@ document.addEventListener('DOMContentLoaded', function() {
 						return response.json()
 					})
 					.then(function(document) {
-						currentVue.name           = document.name
-						currentVue.urgent         = document.urgent
-						currentVue.fileUrl        = document.fileUrl
-						currentVue.done           = document.done
-						currentVue.rejected       = document.rejected
-						currentVue._id            = document._id
-						currentVue.applicant      = document.applicant
+						currentVue.name = document.name
+						currentVue.urgent = document.urgent
+						currentVue.fileUrl = document.fileUrl
+						currentVue.done = document.done
+						currentVue.rejected = document.rejected
+						currentVue._id = document._id
+						currentVue.applicant = document.applicant
 						currentVue.currentOfficer = document.currentOfficer
-						currentVue.history        = document.history
+						currentVue.history = document.history
+						currentVue.passingOfficerLoggedIn = localStorage.getItem('loggedUser') == currentVue.currentOfficer._id
 					})
 					.catch(function(error) {
 						M.toast({ html: 'Error occured! Check console for details.' })
 						console.error(error)
 					})
-			}
+			},
+
+			rejectDocument: function() {
+				if (confirm('Reject this document?')) {
+					let currentVue = this
+					showWait()
+					fetch(`/api/document/${currentVue.documentId}/reject`, {
+						method: 'POST'
+					})
+						.then(function(response) {
+							if (response.status == 200) {
+								M.toast({ html: 'Document rejected!' })
+								currentVue.rejected = true
+							} else {
+								M.toast({ html: 'Error occured! Check console for details.' })
+							}
+							// TODO: redirect to success page
+						})
+						.catch(function(error) {
+							M.toast({ html: 'Error occured! Check console for details.' })
+							console.err(error)
+						})
+						.then(function() {
+							hideWait()
+						})
+				}
+			},
+
+			approveDocument: function() {},
+
+			finalizeDocument: function() {},
+
+			forwardDocument: function() {}
 		},
 
 		mounted: function() {

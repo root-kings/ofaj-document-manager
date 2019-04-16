@@ -54,6 +54,8 @@ router.get('/api/document/:id', documentController.document_detail_get)
 
 router.post('/api/document/:id/delete', documentController.document_delete_post)
 
+router.post('/api/document/:id/reject', documentController.document_reject_post)
+
 router.post('/api/document/:id/edit', documentController.document_update_post)
 
 
