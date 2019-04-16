@@ -10,7 +10,7 @@ exports.document_detail_get = (req, res) => {
 	Document.findById(req.params.id)
 		.populate('applicant')
 		.populate('currentOfficer')
-		.populate('history')
+		.populate('history.officer')
 		.exec((err, result) => {
 			if (err) return res.status(500).send(err)
 
@@ -93,7 +93,13 @@ exports.document_update_post = (req, res) => {
 }
 
 exports.document_reject_post = (req, res) => {
-	Document.findOneAndUpdate({ _id: req.params.id }, { rejected: true }, { safe: true, upsert: true }).exec((err, result) => {
+	let historyItem = {
+		officer: req.body.officer,
+		date: new moment(),
+		action: 'Rejected'
+	}
+
+	Document.findOneAndUpdate({ _id: req.params.id }, { rejected: true, $push: { history: historyItem } }, { safe: true, upsert: true }).exec((err, result) => {
 		if (err) return res.status(500).send(err)
 
 		if (result) return res.send(result)
@@ -103,7 +109,13 @@ exports.document_reject_post = (req, res) => {
 }
 
 exports.document_approve_post = (req, res) => {
-	Document.findOneAndUpdate({ _id: req.params.id }, { approved: true }, { safe: true, upsert: true }).exec((err, result) => {
+	let historyItem = {
+		officer: req.body.officer,
+		date: new moment(),
+		action: 'Approved'
+	}
+
+	Document.findOneAndUpdate({ _id: req.params.id }, { approved: true, $push: { history: historyItem } }, { safe: true, upsert: true }).exec((err, result) => {
 		if (err) return res.status(500).send(err)
 
 		if (result) return res.send(result)
@@ -113,7 +125,13 @@ exports.document_approve_post = (req, res) => {
 }
 
 exports.document_finalize_post = (req, res) => {
-	Document.findOneAndUpdate({ _id: req.params.id }, { done: true }, { safe: true, upsert: true }).exec((err, result) => {
+	let historyItem = {
+		officer: req.body.officer,
+		date: new moment(),
+		action: 'Finalized'
+	}
+
+	Document.findOneAndUpdate({ _id: req.params.id }, { done: true, $push: { history: historyItem } }, { safe: true, upsert: true }).exec((err, result) => {
 		if (err) return res.status(500).send(err)
 
 		if (result) return res.send(result)

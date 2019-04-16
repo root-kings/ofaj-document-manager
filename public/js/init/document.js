@@ -52,7 +52,11 @@ document.addEventListener('DOMContentLoaded', function() {
 					let currentVue = this
 					showWait()
 					fetch(`/api/document/${currentVue.documentId}/reject`, {
-						method: 'POST'
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify({officer: currentVue.currentOfficer._id})
 					})
 						.then(function(response) {
 							if (response.status == 200) {
@@ -77,7 +81,11 @@ document.addEventListener('DOMContentLoaded', function() {
 				let currentVue = this
 				showWait()
 				fetch(`/api/document/${currentVue.documentId}/approve`, {
-					method: 'POST'
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({officer: currentVue.currentOfficer._id})
 				})
 					.then(function(response) {
 						if (response.status == 200) {
@@ -101,7 +109,11 @@ document.addEventListener('DOMContentLoaded', function() {
 				let currentVue = this
 				showWait()
 				fetch(`/api/document/${currentVue.documentId}/finalize`, {
-					method: 'POST'
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({officer: currentVue.currentOfficer._id})
 				})
 					.then(function(response) {
 						if (response.status == 200) {
